@@ -14,7 +14,7 @@ namespace Weblog.Core.Domain.Entities
         public DateTime CreatedDate { get; set; }
         public bool IsApproved { get; set; }
 
-        public int PostId { get; set; }
+        public string PostId { get; set; }
         public Post Post { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }

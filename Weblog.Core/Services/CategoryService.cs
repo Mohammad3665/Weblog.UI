@@ -30,7 +30,7 @@ namespace Weblog.Core.Services
         public async Task DeleteCategoryAsync(int categoryId)
         {
             var posts = await _postRepository.GetAllAsync();
-            if (posts.Any(p => p.CategoryId == categoryId))
+            if (posts.Any(p => p.CategoryId == categoryId.ToString()))
             {
                 throw new InvalidOperationException("Cannot delete category that has posts");
             }

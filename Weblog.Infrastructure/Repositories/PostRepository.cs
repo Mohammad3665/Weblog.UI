@@ -39,13 +39,14 @@ namespace Weblog.Infrastructure.Repositories
             .ToListAsync();
         }
 
-        public async Task<Post?> GetByIdAsync(int id)
+        public async Task<Post?> GetByIdAsync(string id)
         {
             return await _context.Posts
             .Include(p => p.Category)
             .Include(p => p.Comments)
             .FirstOrDefaultAsync(p => p.Id == id);
         }
+
 
         public async Task UpdateAsync(Post post)
         {
