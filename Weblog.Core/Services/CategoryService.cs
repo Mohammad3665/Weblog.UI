@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Weblog.Core.Domain.Entities;
+using Weblog.Core.Domain.RepositoryContracts;
+
+namespace Weblog.Core.Services
+{
+    public class CategoryService
+    {
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IPostRepository _postRepository;
+        public CategoryService(ICategoryRepository categoryRepository, IPostRepository postRepository)
+        {
+            _categoryRepository = categoryRepository;
+            _postRepository = postRepository;
+        }
+
+        public async Task<int> CreateCategoryAsync(Category category)
+        {
+            await _categoryRepository.AddAsync(category);
+            return category.Id;
+        }
+        public async Task UpdateCategory(Category category)
+        {
+            await _categoryRepository.UpdateAsync(category);
+        }
+        public async Task DeleteCategoryAsync(int categoryId)
+        {
+            var posts = await _postRepository.GetAllAsync();
+            if (posts.Any(p => p.CategoryId == categoryId))
+            {
+                throw new InvalidOperationException("Cannot delete category that has posts");
+            }
+
+            var category = await _categoryRepository.GetByIdAsync(categoryId);
+            if (category != null)
+            {
+                await _categoryRepository.DeleteAsync(category);
+            }
+        }
+        public async Task<Category?> GetCategoryByIdAsync(int id)
+        {
+            return await _categoryRepository.GetByIdAsync(id);
+        }
+        public async Task<List<Category>> GetAllCategoriesAsync()
+        {
+            return await _categoryRepository.GetAllAsync();
+        }
+    }
+}

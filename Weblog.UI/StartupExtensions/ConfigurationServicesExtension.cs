@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Weblog.Core.Domain.RepositoryContracts;
+using Weblog.Core.Services;
 using Weblog.Infrastructure.DatabaseContext;
 using Weblog.Infrastructure.Repositories;
 
@@ -14,7 +15,9 @@ namespace Weblog.UI.StartupExtensions
             services.AddScoped<ICategoryRepository, CategoryRepositroy>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-
+            services.AddScoped<PostService>();
+            services.AddScoped<CategoryService>();
+            services.AddScoped<UserService>();
 
             services.AddDbContext<WeblogDbContext>(options =>
             {

@@ -9,7 +9,7 @@ namespace Weblog.Core.Domain.RepositoryContracts
 {
     public interface IPostRepository
     {
-        Task<Post?> GetByIdAsync(int id);
+        Task<Post?> GetByIdAsync(string id);
 
         Task<List<Post>> GetAllAsync();
         Task AddAsync(Post post);
