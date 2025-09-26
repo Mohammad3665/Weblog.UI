@@ -9,7 +9,7 @@ namespace Weblog.Core.Domain.RepositoryContracts
 {
     public interface ICategoryRepository
     {
-        Task<Category?> GetByIdAsync(int id);
+        Task<Category?> GetByIdAsync(Guid id);
 
         Task<List<Category>> GetAllAsync();
         Task AddAsync(Category category);

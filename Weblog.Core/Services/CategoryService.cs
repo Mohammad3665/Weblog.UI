@@ -18,7 +18,7 @@ namespace Weblog.Core.Services
             _postRepository = postRepository;
         }
 
-        public async Task<int> CreateCategoryAsync(Category category)
+        public async Task<Guid> CreateCategoryAsync(Category category)
         {
             await _categoryRepository.AddAsync(category);
             return category.Id;
@@ -27,10 +27,10 @@ namespace Weblog.Core.Services
         {
             await _categoryRepository.UpdateAsync(category);
         }
-        public async Task DeleteCategoryAsync(int categoryId)
+        public async Task DeleteCategoryAsync(Guid categoryId)
         {
             var posts = await _postRepository.GetAllAsync();
-            if (posts.Any(p => p.CategoryId == categoryId.ToString()))
+            if (posts.Any(p => p.CategoryId == categoryId))
             {
                 throw new InvalidOperationException("Cannot delete category that has posts");
             }
@@ -41,7 +41,7 @@ namespace Weblog.Core.Services
                 await _categoryRepository.DeleteAsync(category);
             }
         }
-        public async Task<Category?> GetCategoryByIdAsync(int id)
+        public async Task<Category?> GetCategoryByIdAsync(Guid id)
         {
             return await _categoryRepository.GetByIdAsync(id);
         }

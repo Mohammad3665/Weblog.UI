@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
@@ -9,14 +10,17 @@ namespace Weblog.Core.Domain.Entities
 {
     public class Comment
     {
-        public int Id { get; set; }
+        [Required]
+        public Guid Id { get; set; }
         public string Text { get; set; } = string.Empty;
         public DateTime CreatedDate { get; set; }
         public bool IsApproved { get; set; }
 
-        public string PostId { get; set; }
+        [Required]
+        public Guid PostId { get; set; }
         public Post Post { get; set; }
-        public string UserId { get; set; }
+        [Required]
+        public Guid UserId { get; set; }
         public User User { get; set; }
     }
 }

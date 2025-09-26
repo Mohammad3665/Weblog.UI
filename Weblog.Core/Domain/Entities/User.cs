@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,11 @@ namespace Weblog.Core.Domain.Entities
 {
     public class User
     {
-        public string Id { get; set; } = string.Empty;
+        [Required]
+        public Guid Id { get; set; }
+        [StringLength(50)]
         public string UserName { get; set; } = string.Empty;
+        [StringLength(50)]
         public string Email { get; set; } = string.Empty;
         public bool IsActive { get; set; }
         //Navigation

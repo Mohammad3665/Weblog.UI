@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,14 +10,17 @@ namespace Weblog.Core.Domain.Entities
 {
     public class Post
     {
-        public string Id { get; set; }
+        [Required]
+        public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
-        public string AuthorId { get; set; } = string.Empty;
+        [Required]
+        public Guid AuthorId { get; set; }
         public DateTime CreatedDate { get; set; }
         public string? ImageUrl { get; set; }
         // relations
-        public string CategoryId { get; set; }
+        [Required]
+        public Guid CategoryId { get; set; }
         public Category Category { get; set; }
 
         public List<Comment> Comments { get; set; } = new();

@@ -21,7 +21,7 @@ namespace Weblog.Core.Services
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<string> CreatePostAsync(Post post, Comment comment)
+        public async Task<Guid> CreatePostAsync(Post post, Comment comment)
         {
             await _postRepository.AddAsync(post);
             return post.Id;
@@ -30,7 +30,7 @@ namespace Weblog.Core.Services
         {
             await _postRepository.UpdateAsync(post);
         }
-        public async Task DeletePostAsync(string postId)
+        public async Task DeletePostAsync(Guid postId)
         {
             var post = await _postRepository.GetByIdAsync(postId);
             if (post != null)
@@ -48,12 +48,12 @@ namespace Weblog.Core.Services
             var posts = await _postRepository.GetAllAsync();
             return posts;
         }
-        public async Task<Post?> GetPostByIdAsync(string id)
+        public async Task<Post?> GetPostByIdAsync(Guid id)
         {
             var post = await _postRepository.GetByIdAsync(id);
             return post;
         }
-        public async Task<List<Post>> SearchPostAsync(string? searchTerm, string? categoryId)
+        public async Task<List<Post>> SearchPostAsync(string? searchTerm, Guid? categoryId)
         {
             var posts = await _postRepository.GetAllAsync();
             if (!string.IsNullOrEmpty(searchTerm))
@@ -64,7 +64,7 @@ namespace Weblog.Core.Services
             }
             if (categoryId != null)
             {
-                posts = posts.Where(p => p.CategoryId == categoryId.ToString()).ToList();
+                posts = posts.Where(p => p.CategoryId == categoryId).ToList();
             }
             return posts;
         }

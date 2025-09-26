@@ -9,7 +9,7 @@ namespace Weblog.Core.Domain.RepositoryContracts
 {
     public interface ICommentRepository
     {
-        Task<Comment?> GetByIdAsync(int id);
+        Task<Comment?> GetByIdAsync(Guid id);
 
         Task<List<Comment>> GetAllAsync();
         Task AddAsync(Comment comment);

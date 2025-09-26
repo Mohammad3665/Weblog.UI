@@ -21,11 +21,11 @@ namespace Weblog.Core.Services
         {
             return await _userRepository.GetAllAsync();
         }
-        public async Task<User?> GetUserByIdAsync(string userId)
+        public async Task<User?> GetUserByIdAsync(Guid userId)
         {
             return await _userRepository.GetByIdAsync(userId);
         }
-        public async Task ActivateUserAsync(string userId)
+        public async Task ActivateUserAsync(Guid userId)
         {
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
@@ -34,7 +34,7 @@ namespace Weblog.Core.Services
                 await _userRepository.UpdateAsync(user);
             }
         }
-        public async Task DeactiveUserAsync(string userId)
+        public async Task DeactiveUserAsync(Guid userId)
         {
             var user = await _userRepository.GetByIdAsync(userId);
             if(user != null)
