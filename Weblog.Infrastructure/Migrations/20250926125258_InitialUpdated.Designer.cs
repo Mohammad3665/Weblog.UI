@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Weblog.Infrastructure.DatabaseContext;
 
@@ -11,9 +12,11 @@ using Weblog.Infrastructure.DatabaseContext;
 namespace Weblog.Infrastructure.Migrations
 {
     [DbContext(typeof(WeblogDbContext))]
-    partial class WeblogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250926125258_InitialUpdated")]
+    partial class InitialUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

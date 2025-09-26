@@ -18,6 +18,7 @@ namespace Weblog.UI.StartupExtensions
             services.AddScoped<PostService>();
             services.AddScoped<CategoryService>();
             services.AddScoped<UserService>();
+            services.AddScoped<CommentService>();
 
             services.AddDbContext<WeblogDbContext>(options =>
             {

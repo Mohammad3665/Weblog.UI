@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Weblog.Core.Domain.Entities.Post>
+
+@{
+    ViewData["Title"] = "Blog Home";
+}
+
+<div class="container">
+    <h1>Blog Posts</h1>
+
+    <form method="get" asp-action="Index" class="mb-4">
+        <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" placeholder="Search posts..." />
+        <select name="categoryId">
+            <option value="">All Categories</option>
+            @foreach (var cat in ViewBag.Categories as List<Weblog.Core.Domain.Entities.Category>)
+            {
+                <option value="@cat.Id" @(ViewBag.SelectedCategory == cat.Id ? "selected" : "")>@cat.Name</option>
+            }
+        </select>
+        <button type="submit" class="btn">Filter</button>
+    </form>
+
+    @foreach (var post in Model)
+    {
+        <div class="post-card">
+            <h2>@post.Title</h2>
+            <p>@post.Content.Substring(0, Math.Min(post.Content.Length, 150))...</p>
+            <p><small>Author: @post.AuthorName | Date: @post.CreatedDate.ToShortDateString()</small></p>
+            <a class="btn" asp-action="Details" asp-route-id="@post.Id">Read More...</a>
+        </div>
+    }
+</div>

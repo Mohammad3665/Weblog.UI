@@ -12,11 +12,9 @@ namespace Weblog.Core.Services
     {
         private readonly IPostRepository _postRepository;
         private readonly ICategoryRepository _categoryRepository;
-        private readonly ICommentRepository _commentRepository;
 
-        public PostService(IPostRepository postRepository, ICommentRepository commentRepository, ICategoryRepository categoryRepository)
+        public PostService(IPostRepository postRepository, ICategoryRepository categoryRepository)
         {
-            _commentRepository = commentRepository;
             _postRepository = postRepository;
             _categoryRepository = categoryRepository;
         }
@@ -35,11 +33,6 @@ namespace Weblog.Core.Services
             var post = await _postRepository.GetByIdAsync(postId);
             if (post != null)
             {
-                var comments = await _commentRepository.GetAllAsync();
-                foreach (var comment in comments.Where(c => c.PostId == postId))
-                {
-                    await _postRepository.DeleteAsync(post);
-                }
                 await _postRepository.DeleteAsync(post);
             }
         }

@@ -16,6 +16,7 @@ namespace Weblog.Core.Domain.Entities
         public string Content { get; set; } = string.Empty;
         [Required]
         public Guid AuthorId { get; set; }
+        public string AuthorName { get; set; }
         public DateTime CreatedDate { get; set; }
         public string? ImageUrl { get; set; }
         // relations
