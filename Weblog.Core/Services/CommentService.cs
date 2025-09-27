@@ -39,4 +39,10 @@ public class CommentService
         var comments = await _commentRepository.GetAllAsync();
         return comments.Where(c => c.PostId == postId).ToList();
     }
+
+    public async Task<List<Comment>> GetAllComments()
+    {
+        var comments = await _commentRepository.GetAllAsync();
+        return comments;
+    }
 }

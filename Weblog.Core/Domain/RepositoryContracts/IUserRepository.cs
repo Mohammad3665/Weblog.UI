@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,11 +10,11 @@ namespace Weblog.Core.Domain.RepositoryContracts
 {
     public interface IUserRepository
     {
-        Task<User?> GetByIdAsync(Guid id);
+        Task<IdentityUser?> GetByIdAsync(Guid id);
 
-        Task<List<User>> GetAllAsync();
-        Task AddAsync(User user);
-        Task UpdateAsync(User user);
-        Task DeleteAsync(User user);
+        Task<List<IdentityUser>> GetAllAsync();
+        Task AddAsync(IdentityUser user);
+        Task UpdateAsync(IdentityUser user);
+        Task DeleteAsync(IdentityUser user);
     }
 }

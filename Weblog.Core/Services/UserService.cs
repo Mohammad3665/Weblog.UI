@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,11 @@ namespace Weblog.Core.Services
             _userRepository = userRepository;
         }
 
-        public async Task<List<User>> GetAllUsersAsync()
+        public async Task<List<IdentityUser>> GetAllUsersAsync()
         {
             return await _userRepository.GetAllAsync();
         }
-        public async Task<User?> GetUserByIdAsync(Guid userId)
+        public async Task<IdentityUser?> GetUserByIdAsync(Guid userId)
         {
             return await _userRepository.GetByIdAsync(userId);
         }
@@ -30,7 +31,7 @@ namespace Weblog.Core.Services
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
             {
-                user.IsActive = true;
+                user.LockoutEnd = null;
                 await _userRepository.UpdateAsync(user);
             }
         }
@@ -39,7 +40,7 @@ namespace Weblog.Core.Services
             var user = await _userRepository.GetByIdAsync(userId);
             if(user != null)
             {
-                user.IsActive = false;
+                user.LockoutEnd = DateTimeOffset.MaxValue;
                 await _userRepository.UpdateAsync(user);
             }
         }

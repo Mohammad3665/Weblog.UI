@@ -6,6 +6,17 @@
 
 <div class="container">
     <h1>Blog Posts</h1>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <form asp-controller="Account" asp-action="Logout" method="post">
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+    }
+    else
+    {
+        <a class="btn btn-primary" asp-controller="Account" asp-action="Login">Login</a>
+        <a class="btn btn-secondary" asp-controller="Account" asp-action="Register">Register</a>
+    }
 
     <form method="get" asp-action="Index" class="mb-4">
         <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" placeholder="Search posts..." />

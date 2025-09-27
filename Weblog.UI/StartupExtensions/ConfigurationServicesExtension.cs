@@ -1,8 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Weblog.Core.Domain.IdentityEntities;
 using Weblog.Core.Domain.RepositoryContracts;
 using Weblog.Core.Services;
-using Weblog.Infrastructure.DatabaseContext;
 using Weblog.Infrastructure.Repositories;
+using Weblog.Infrastructure.DatabaseContext;
+
 
 namespace Weblog.UI.StartupExtensions
 {
@@ -21,8 +25,16 @@ namespace Weblog.UI.StartupExtensions
             services.AddScoped<CommentService>();
 
             services.AddDbContext<WeblogDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+            );
+            //enable identity in this project
+            _ = services.AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<WeblogDbContext>()
+            .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                options.LoginPath = "/Account/Login";
             });
             return services;
         }

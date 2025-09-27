@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Weblog.Core.Domain.Entities;
 using Weblog.Core.Domain.RepositoryContracts;
+using Microsoft.AspNetCore.Http;
 
 namespace Weblog.Core.Services
 {
@@ -19,7 +20,7 @@ namespace Weblog.Core.Services
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<Guid> CreatePostAsync(Post post, Comment comment)
+        public async Task<Guid> CreatePostAsync(Post post)
         {
             await _postRepository.AddAsync(post);
             return post.Id;

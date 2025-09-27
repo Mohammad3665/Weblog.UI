@@ -18,12 +18,13 @@ namespace Weblog.Core.Services
             _postRepository = postRepository;
         }
 
+
         public async Task<Guid> CreateCategoryAsync(Category category)
         {
             await _categoryRepository.AddAsync(category);
             return category.Id;
         }
-        public async Task UpdateCategory(Category category)
+        public async Task UpdateCategoryAsync(Category category)
         {
             await _categoryRepository.UpdateAsync(category);
         }

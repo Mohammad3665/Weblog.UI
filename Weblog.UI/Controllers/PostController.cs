@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Weblog.Core.Domain.Entities;
@@ -46,5 +47,6 @@ namespace Weblog.UI.Controllers
             await _commentService.AddCommentAsync(comment);
             return RedirectToAction("Details", new { id = postId});
         }
+
     }
 }
