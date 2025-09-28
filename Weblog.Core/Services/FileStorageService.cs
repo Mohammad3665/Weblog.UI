@@ -10,10 +10,10 @@ namespace Weblog.Core.Services
 {
     public class FileStorageService : IFileStorageRepository
     {
-        public async Task<string>? SaveFileAsync(IFormFile file, string folder)
+        public async Task<string> SaveFileAsync(IFormFile file, string folder)
         {
             if (file == null || file.Length == 0)
-                return null;
+                return string.Empty;
             var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Uploads/PostImages");
             
             if (!Directory.Exists(uploadsFolder))
