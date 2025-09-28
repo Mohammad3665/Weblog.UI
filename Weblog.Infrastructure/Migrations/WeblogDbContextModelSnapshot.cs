@@ -233,7 +233,7 @@ namespace Weblog.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Weblog.Core.Domain.Entities.Comment", b =>
@@ -269,7 +269,7 @@ namespace Weblog.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("Weblog.Core.Domain.Entities.Post", b =>
@@ -314,7 +314,7 @@ namespace Weblog.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("Weblog.Core.Domain.Entities.User", b =>
@@ -335,7 +335,7 @@ namespace Weblog.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

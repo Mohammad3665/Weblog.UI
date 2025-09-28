@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +13,8 @@ namespace Weblog.Core.Domain.RepositoryContracts
         Task<Post?> GetByIdAsync(Guid id);
 
         Task<List<Post>> GetAllAsync();
-        Task AddAsync(Post post);
-        Task UpdateAsync(Post post);
+        Task AddAsync(Post post, IFormFile? image);
+        Task UpdateAsync(Post post, IFormFile? newImage);
         Task DeleteAsync(Post post);
     }
 }

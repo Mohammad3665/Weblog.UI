@@ -19,10 +19,12 @@ namespace Weblog.UI.StartupExtensions
             services.AddScoped<ICategoryRepository, CategoryRepositroy>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IFileStorageRepository, FileStorageService>();
             services.AddScoped<PostService>();
             services.AddScoped<CategoryService>();
             services.AddScoped<UserService>();
             services.AddScoped<CommentService>();
+            services.AddScoped<FileStorageService>();
 
             services.AddDbContext<WeblogDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))

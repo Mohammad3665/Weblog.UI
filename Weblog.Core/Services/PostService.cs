@@ -13,21 +13,24 @@ namespace Weblog.Core.Services
     {
         private readonly IPostRepository _postRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IFileStorageRepository _fileStorageRepository;
 
-        public PostService(IPostRepository postRepository, ICategoryRepository categoryRepository)
+        public PostService(IPostRepository postRepository, ICategoryRepository categoryRepository, IFileStorageRepository fileStorageRepository)
         {
             _postRepository = postRepository;
             _categoryRepository = categoryRepository;
+            _fileStorageRepository = fileStorageRepository;
         }
 
-        public async Task<Guid> CreatePostAsync(Post post)
+        public async Task<Guid> CreatePostAsync(Post post, IFormFile? image)
         {
-            await _postRepository.AddAsync(post);
+            
+            await _postRepository.AddAsync(post, image);
             return post.Id;
         }
-        public async Task UpdatePostAsync(Post post)
+        public async Task UpdatePostAsync(Post post, IFormFile? newImage)
         {
-            await _postRepository.UpdateAsync(post);
+            await _postRepository.UpdateAsync(post, newImage);
         }
         public async Task DeletePostAsync(Guid postId)
         {

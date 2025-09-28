@@ -23,34 +23,12 @@ namespace Weblog.UI.Areas.Admin.Controllers
         public IActionResult Create() { return View(); }
 
         [HttpPost]
-        public async Task<IActionResult> Craete(Post post, IFormFile? Image)
+        public async Task<IActionResult> Craete(Post post, IFormFile? image)
         {
             if (!ModelState.IsValid) return View(post);
 
-            if (Image != null && Image.Length > 0)
-            {
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Uploads/PostImages");
-                if (!Directory.Exists(uploadsFolder))
-                {
-                    Directory.CreateDirectory(uploadsFolder);
-                }
-
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(Image.FileName);
-                var filePath = Path.Combine(uploadsFolder, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await Image.CopyToAsync(stream);
-                }
-
-                post.ImageUrl = "/Uploads/PostImages";
-            }
-            else
-            {
-                post.ImageUrl = "/Defaults/DefaultPostImage.png";
-            }
-
-            await _postService.CreatePostAsync(post);
+            post.CreatedDate = DateTime.Now; 
+            await _postService.CreatePostAsync(post, image);
             return RedirectToAction("Index", "Home");
         }
 
@@ -62,11 +40,11 @@ namespace Weblog.UI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Post post)
+        public async Task<IActionResult> Edit(Post post, IFormFile? newImage)
         {
             if (!ModelState.IsValid) return View(post);
 
-            await _postService.UpdatePostAsync(post);
+            await _postService.UpdatePostAsync(post, newImage);
             return RedirectToAction("Index", "Home");
         }
 

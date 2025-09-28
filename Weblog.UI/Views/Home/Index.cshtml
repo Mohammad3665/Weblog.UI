@@ -24,7 +24,7 @@
             <option value="">All Categories</option>
             @foreach (var cat in ViewBag.Categories as List<Weblog.Core.Domain.Entities.Category>)
             {
-                <option value="@cat.Id" @(ViewBag.CategoryId == cat.Id ? "selected" : "")>@cat.Name</option>
+                @* <option value="@cat.Id" @(ViewBag.CategoryId == cat.Id ? "selected" : "")>@cat.Name</option> *@
             }
         </select>
         <button type="submit" class="btn">Filter</button>
