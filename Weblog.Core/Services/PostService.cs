@@ -50,13 +50,13 @@ namespace Weblog.Core.Services
             var post = await _postRepository.GetByIdAsync(id);
             return post;
         }
-        public async Task<List<Post>> SearchPostAsync(string? searchTerm, Guid? categoryId)
+        public async Task<List<Post>> SearchPostAsync(string? searchTerm, Guid? categoryId, string? searchString)
         {
             var posts = await _postRepository.GetAllAsync();
-            if (!string.IsNullOrEmpty(searchTerm))
+            if (!string.IsNullOrEmpty(searchString))
             {
-                posts = posts.Where(p => p.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || 
-                p.Content.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                posts = posts.Where(p => p.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase) || 
+                p.Content.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                 .ToList();
             }
             if (categoryId != null)

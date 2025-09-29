@@ -17,9 +17,9 @@ namespace Weblog.UI.Controllers
         }
         [HttpGet]
         [Route("/")]
-        public async Task<IActionResult> Index(string? searchTerm, Guid categoryId)
+        public async Task<IActionResult> Index(string? searchTerm, Guid categoryId, string? searchString)
         {
-            var posts = await _postService.SearchPostAsync(searchTerm, categoryId);
+            var posts = await _postService.SearchPostAsync(searchTerm, categoryId, searchString);
             var categories = await _categoryService.GetAllCategoriesAsync();
 
             ViewBag.Categories = categories;
