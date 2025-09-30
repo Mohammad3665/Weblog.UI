@@ -12,9 +12,9 @@ namespace Weblog.Core.Domain.Entities
         [Required]
         public Guid Id { get; set; }
         [StringLength(50)]
-        public string UserName { get; set; } = string.Empty;
+        public string UserName { get; set; }
         [StringLength(50)]
-        public string Email { get; set; } = string.Empty;
+        public string Email { get; set; }
         //Navigation
         public List<Post> Posts { get; set; } = new();
         public List<Comment> Comments { get; set; } = new();

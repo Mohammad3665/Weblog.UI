@@ -12,7 +12,8 @@ namespace Weblog.Core.Domain.Entities
     {
         [Required]
         public Guid Id { get; set; }
-        public string Text { get; set; } = string.Empty;
+        [StringLength(1000)]
+        public string Text { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsApproved { get; set; }
 

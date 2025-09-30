@@ -18,6 +18,43 @@
         <a class="btn btn-secondary" asp-controller="Account" asp-action="Register">Register</a>
     }
 
+    <div class="table-container">
+        <div class="flex">
+            <div class="flex-1">
+                <h1>Blogs</h1>
+            </div>
+            <div class="flex-3 text-right">
+                <label>Search by:</label>
+
+                <select class="search-dropdown" name="searchString" style="width: 200px">
+                    @foreach (var field in ViewBag.Post.Title as List<Weblog.Core.Domain.Entities.Post>)
+                    {
+                        if (field.Title == ViewBag.CurrentSearchBy)
+                        {
+                            <option value="@field.Title" selected="selected">@field.Title</option>
+                        }
+                        else
+                        {
+                            <option value="@field.Title">@field.Title</option>
+                        }
+
+                    }
+                    @* Eg: searchBy=PersonName&searchString=abc *@
+                </select>
+
+                <input type="search" id="Search" class="search-text" placeholder="Search" name="searchString" value="@ViewBag.searchString" style="width:200px" />
+
+                <button class="search-button">Search</button>
+
+                <a asp-controller="Home" asp-action="Index" class="ml link-hover">Clear all</a>
+            </div>
+        </div>
+        </div>
+        <table class="table w-100 mt persons">
+
+        </table>
+
+@* 
     <form method="get" asp-action="Index" class="mb-4">
         <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" placeholder="Search posts..." />
         <select name="categoryId">
@@ -26,7 +63,7 @@
             {
                 @* <option value="@cat.Id" @(ViewBag.CategoryId == cat.Id ? "selected" : "")>@cat.Name</option> *@
             }
-        </select>
+@*         </select>
         <button type="submit" class="btn">Filter</button>
     </form>
 
@@ -39,4 +76,4 @@
             <a class="btn" asp-action="Details" asp-route-id="@post.Id">Read More...</a>
         </div>
     }
-</div>
+</div> *@

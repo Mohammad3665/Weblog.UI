@@ -12,7 +12,7 @@ namespace Weblog.Core.Domain.Entities
         [Required]
         public Guid Id { get; set; }
         [StringLength(20)]
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
 
         // Navigation
         public List<Post> Posts { get; set; } = new();
