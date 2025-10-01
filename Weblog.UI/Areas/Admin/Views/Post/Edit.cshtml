@@ -1,0 +1,30 @@
+﻿@model Weblog.Core.Domain.Entities.Post
+@{
+    ViewData["Title"] = "Edit Post";
+}
+<h2>Edit Post</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data" class="row g-3">
+    <input type="hidden" asp-for="Id" />
+    <div class="col-md-6">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="col-md-12">
+        <label asp-for="Content" class="form-label"></label>
+        <textarea asp-for="Content" rows="5" class="form-control"></textarea>
+    </div>
+    <div class="col-md-6">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <p>Current Thumbnail:</p>
+            <img src="@Model.ImageUrl" width="150" />
+        }
+        <label>New Thumbnail</label>
+        <input type="file" name="newImage" class="form-control" />
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>

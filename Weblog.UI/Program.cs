@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Weblog.Core.Domain.IdentityEntities;
 using Weblog.UI.StartupExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,26 +8,26 @@ var app = builder.Build();
 
 async Task CreateRoles(IServiceProvider serviceProvider)
 {
-    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+    var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
     string[] roleNames = { "Admin", "User" };
 
-    var defaultAdminEmail = "mashmammad876@gmail.com";
+    var defaultAdminEmail = "mashmammad@gmail.com";
     var adminUser = await userManager.FindByEmailAsync(defaultAdminEmail);
     if (adminUser == null)
     {
-        var newAdmin = new IdentityUser
-        {
-            UserName = defaultAdminEmail,
-            Email = defaultAdminEmail
-        }; 
+        //var newAdmin = new ApplicationUser
+        //{
+        //    UserName = defaultAdminEmail,
+        //    Email = defaultAdminEmail
+        //}; 
 
-        var result = await userManager.CreateAsync(newAdmin, "Admin@123");
-        if (result.Succeeded)
-        {
-            await userManager.AddToRoleAsync(newAdmin, "Admin");
-        }
+        //var result = await userManager.CreateAsync(newAdmin, "Admin@123");
+        //if (result.Succeeded)
+        //{
+        //    await userManager.AddToRoleAsync(newAdmin, "Admin");
+        //}
     }
 }
 using (var scope = app.Services.CreateScope())

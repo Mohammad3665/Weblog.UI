@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Weblog.Core.Domain.IdentityEntities
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                <button type="submit" class="nav-link btn btn-link text-white">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-controller="Account" asp-action="Register">Register</a>
+        </li>
+    }
+</ul>

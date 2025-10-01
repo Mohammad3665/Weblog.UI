@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Weblog.Core.Domain.Entities;
+using Weblog.Core.Domain.IdentityEntities;
 using Weblog.Core.Domain.RepositoryContracts;
 
 namespace Weblog.Core.Services
@@ -18,11 +19,11 @@ namespace Weblog.Core.Services
             _userRepository = userRepository;
         }
 
-        public async Task<List<IdentityUser>> GetAllUsersAsync()
+        public async Task<List<ApplicationUser>> GetAllUsersAsync()
         {
             return await _userRepository.GetAllAsync();
         }
-        public async Task<IdentityUser?> GetUserByIdAsync(Guid userId)
+        public async Task<ApplicationUser?> GetUserByIdAsync(Guid userId)
         {
             return await _userRepository.GetByIdAsync(userId);
         }

@@ -1,0 +1,45 @@
+﻿@model Weblog.Core.Domain.IdentityEntities.ApplicationUser
+@{
+    ViewData["Title"] = "Manage Roles for " + Model.UserName;
+    var roles = ViewBag.Roles as List<Microsoft.AspNetCore.Identity.IdentityRole>;
+    var userRoles = ViewBag.UserRoles as IList<string>;
+}
+<h2>Manage Roles - @Model.UserName</h2>
+
+<h4>Current Roles</h4>
+@if (userRoles != null && userRoles.Any())
+{
+    <ul class="list-group mb-3">
+        @foreach (var role in userRoles)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                @role
+                <form asp-action="DeleteRole" asp-route-id="@Model.Id" method="post" class="d-inline">
+                    <input type="hidden" name="role" value="@role" />
+                    <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                </form>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No roles assigned yet.</p>
+}
+
+<h4>Add Role</h4>
+<form asp-action="AddRole" asp-route-id="@Model.Id" method="post" class="row g-3">
+    <div class="col-md-6">
+        <select name="role" class="form-select">
+            @foreach (var role in roles)
+            {
+                <option value="@role.Name">@role.Name</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-6">
+        <button type="submit" class="btn btn-success">Add Role</button>
+    </div>
+</form>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to Users</a>

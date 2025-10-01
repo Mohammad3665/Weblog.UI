@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Weblog.Core.Domain.IdentityEntities.ApplicationUser>
+@{
+    ViewData["Title"] = "Users";
+}
+<h2>Users</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>UserName</th>
+            <th>Active</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.UserName</td>
+                <td>
+                    @if (user.LockoutEnd.HasValue && user.LockoutEnd > DateTime.UtcNow)
+                    {
+                        <span class="badge bg-danger">Inactive</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">Active</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="ManageRoles" asp-route-id="@user.Id" class="btn btn-sm btn-primary">Roles</a>
+                    <form asp-action="ToggleActive" asp-route-id="@user.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-warning">
+                            @(user.LockoutEnd.HasValue && user.LockoutEnd > DateTime.UtcNow ? "Activate" : "Deactivate")
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -5,16 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Weblog.Core.Domain.Entities;
+using Weblog.Core.Domain.IdentityEntities;
 
 namespace Weblog.Core.Domain.RepositoryContracts
 {
     public interface IUserRepository
     {
-        Task<IdentityUser?> GetByIdAsync(Guid id);
+        Task<ApplicationUser?> GetByIdAsync(Guid id);
 
-        Task<List<IdentityUser>> GetAllAsync();
-        Task AddAsync(IdentityUser user);
-        Task UpdateAsync(IdentityUser user);
-        Task DeleteAsync(IdentityUser user);
+        Task<List<ApplicationUser>> GetAllAsync();
+        Task AddAsync(ApplicationUser user);
+        Task UpdateAsync(ApplicationUser user);
+        Task DeleteAsync(ApplicationUser user);
     }
 }

@@ -1,79 +1,63 @@
 ﻿@model IEnumerable<Weblog.Core.Domain.Entities.Post>
 
 @{
-    ViewData["Title"] = "Blog Home";
+    ViewData["Title"] = "Home";
+    var categories = ViewBag.Categories as IEnumerable<Weblog.Core.Domain.Entities.Category>;
+    var searchTerm = ViewBag.SearchTerm as string;
+    Guid categoryId = ViewBag.CategoryId != null ? (Guid)ViewBag.CategoryId : Guid.Empty;
 }
 
-<div class="container">
-    <h1>Blog Posts</h1>
-    @if (User.Identity.IsAuthenticated)
+<h2 class="mb-4">Blog Posts</h2>
+
+<!-- Search & Filter Form -->
+<form asp-action="Index" method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <input type="text" name="searchTerm" value="@searchTerm" class="form-control" placeholder="Search by title or content..." />
+    </div>
+    <div class="col-md-4">
+        <select name="categoryId" class="form-select">
+            <option value="">-- All Categories --</option>
+            @foreach (var cat in categories)
+            {
+                var isSelected = cat.Id == categoryId;
+
+                <option value="@cat.Id" selected="@(isSelected ? "selected" : null)">@cat.Name</option>
+            }
+
+        </select>
+    </div>
+    <div class="col-md-4">
+        <button type="submit" class="btn btn-primary">Filter</button>
+        <a asp-action="Index" class="btn btn-secondary">Reset</a>
+    </div>
+</form>
+
+<!-- Post List -->
+<div class="row">
+    @if (Model != null && Model.Any())
     {
-        <form asp-controller="Account" asp-action="Logout" method="post">
-            <button type="submit" class="btn btn-danger">Logout</button>
-        </form>
+        foreach (var post in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    @if (!string.IsNullOrEmpty(post.ImageUrl))
+                    {
+                        <img src="@post.ImageUrl" class="card-img-top" alt="@post.Title" />
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@post.Title</h5>
+                        <p class="text-muted">@post.CreatedDate.ToShortDateString() | @post.AuthorName</p>
+                        <p>@(post.Content.Length > 100 ? post.Content.Substring(0, 100) + "..." : post.Content)</p>
+                        <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+        }
     }
     else
     {
-        <a class="btn btn-primary" asp-controller="Account" asp-action="Login">Login</a>
-        <a class="btn btn-secondary" asp-controller="Account" asp-action="Register">Register</a>
-    }
-
-    <div class="table-container">
-        <div class="flex">
-            <div class="flex-1">
-                <h1>Blogs</h1>
-            </div>
-            <div class="flex-3 text-right">
-                <label>Search by:</label>
-
-                <select class="search-dropdown" name="searchString" style="width: 200px">
-                    @foreach (var field in ViewBag.Post.Title as List<Weblog.Core.Domain.Entities.Post>)
-                    {
-                        if (field.Title == ViewBag.CurrentSearchBy)
-                        {
-                            <option value="@field.Title" selected="selected">@field.Title</option>
-                        }
-                        else
-                        {
-                            <option value="@field.Title">@field.Title</option>
-                        }
-
-                    }
-                    @* Eg: searchBy=PersonName&searchString=abc *@
-                </select>
-
-                <input type="search" id="Search" class="search-text" placeholder="Search" name="searchString" value="@ViewBag.searchString" style="width:200px" />
-
-                <button class="search-button">Search</button>
-
-                <a asp-controller="Home" asp-action="Index" class="ml link-hover">Clear all</a>
-            </div>
-        </div>
-        </div>
-        <table class="table w-100 mt persons">
-
-        </table>
-
-@* 
-    <form method="get" asp-action="Index" class="mb-4">
-        <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" placeholder="Search posts..." />
-        <select name="categoryId">
-            <option value="">All Categories</option>
-            @foreach (var cat in ViewBag.Categories as List<Weblog.Core.Domain.Entities.Category>)
-            {
-                @* <option value="@cat.Id" @(ViewBag.CategoryId == cat.Id ? "selected" : "")>@cat.Name</option> *@
-            }
-@*         </select>
-        <button type="submit" class="btn">Filter</button>
-    </form>
-
-    @foreach (var post in Model)
-    {
-        <div class="post-card">
-            <h2>@post.Title</h2>
-            <p>@post.Content.Substring(0, Math.Min(post.Content.Length, 150))...</p>
-            <p><small>Author: @post.AuthorName | Date: @post.CreatedDate.ToShortDateString()</small></p>
-            <a class="btn" asp-action="Details" asp-route-id="@post.Id">Read More...</a>
+        <div class="col-12">
+            <p class="text-muted">No posts found.</p>
         </div>
     }
-</div> *@
+</div>

@@ -1,0 +1,27 @@
+﻿@model Weblog.Core.DTO.LoginDTO
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2 class="mb-4">Login</h2>
+
+<form asp-action="Login" method="post" class="row g-3">
+
+    <div class="col-md-6">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="Password" class="form-label"></label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Login</button>
+        <a asp-action="Register" class="btn btn-link">Register</a>
+    </div>
+</form>
+

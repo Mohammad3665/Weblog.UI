@@ -19,12 +19,12 @@ namespace Weblog.UI.Controllers
         }
         public async Task<IActionResult> Details(Guid id)
         {
-            var posts = await _postService.GetPostByIdAsync(id);
-            if (posts == null)
+            var post = await _postService.GetPostByIdAsync(id);
+            if (post == null)
             {
                 return NotFound();
             }
-            return View();
+            return View(post);
         }
         [HttpPost]
         public async Task<IActionResult> AddComment(Guid postId, string content)

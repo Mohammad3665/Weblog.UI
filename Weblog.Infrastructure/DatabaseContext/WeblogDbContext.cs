@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Weblog.Core.Domain.Entities;
+using Weblog.Core.Domain.IdentityEntities;
 
 namespace Weblog.Infrastructure.DatabaseContext
 {
-    public class WeblogDbContext : IdentityDbContext<IdentityUser>
+    public class WeblogDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
         public WeblogDbContext(DbContextOptions<WeblogDbContext> options): base(options) { }
 

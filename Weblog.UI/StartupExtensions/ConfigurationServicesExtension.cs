@@ -30,7 +30,7 @@ namespace Weblog.UI.StartupExtensions
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             );
             //enable identity in this project
-            _ = services.AddIdentity<IdentityUser, IdentityRole>()
+            _ = services.AddIdentity<ApplicationUser, ApplicationRole>()
             .AddEntityFrameworkStores<WeblogDbContext>()
             .AddDefaultTokenProviders();
 

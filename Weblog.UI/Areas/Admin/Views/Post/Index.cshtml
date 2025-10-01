@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Weblog.Core.Domain.Entities.Post>
+@{
+    ViewData["Title"] = "Manage Posts";
+}
+<h2>Posts</h2>
+<a asp-action="Create" class="btn btn-success mb-3">Create New Post</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Created</th>
+            <th>Category</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var post in Model)
+        {
+            <tr>
+                <td>@post.Title</td>
+                <td>@post.CreatedDate.ToShortDateString()</td>
+                <td>@post.Category?.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@post.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <form asp-action="Delete" asp-route-id="@post.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

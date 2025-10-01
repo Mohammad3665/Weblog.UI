@@ -1,24 +1,52 @@
 ﻿@model Weblog.Core.DTO.RegisterDTO
+@{
+    ViewData["Title"] = "Register";
+}
 
-<div class="container">
-    <h2>Register</h2>
-    <form asp-action="Register" method="post">
-        <div>
-            <label>Email</label>
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
+<h2 class="mb-4">Register</h2>
+
+<form asp-action="Register" method="post" class="row g-3">
+
+    <div class="col-md-6">
+        <label asp-for="PersonName" class="form-label"></label>
+        <input asp-for="PersonName" class="form-control" />
+        <span asp-validation-for="PersonName" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="Password" class="form-label"></label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="ConfirmPassword" class="form-label"></label>
+        <input asp-for="ConfirmPassword" type="password" class="form-control" />
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">User Type</label>
+        <div class="form-check">
+            <input asp-for="UserType" type="radio" value="Admin" class="form-check-input" id="roleAdmin" />
+            <label class="form-check-label" for="roleAdmin">Admin</label>
         </div>
-        <div>
-            <label>Password</label>
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
+        <div class="form-check">
+            <input asp-for="UserType" type="radio" value="User" class="form-check-input" id="roleUser" checked />
+            <label class="form-check-label" for="roleUser">User</label>
         </div>
-        <div>
-            <label>Confirm Password</label>
-            <input asp-for="ConfirmPassword" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn">Register</button>
-    </form>
-    <p>Already have an account? <a asp-action="Login">Login here</a></p>
-</div>
+        <span asp-validation-for="UserType" class="text-danger"></span>
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Register</button>
+        <a asp-action="Login" class="btn btn-link">Already have an account? Login</a>
+    </div>
+</form>
+
