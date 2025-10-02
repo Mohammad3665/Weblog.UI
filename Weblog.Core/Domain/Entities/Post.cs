@@ -28,5 +28,10 @@ namespace Weblog.Core.Domain.Entities
         public Category Category { get; set; }
 
         public List<Comment> Comments { get; set; } = new();
+
+        public static implicit operator Guid(Post? v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

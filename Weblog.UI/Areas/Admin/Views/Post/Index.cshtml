@@ -23,6 +23,7 @@
                 <td>@post.Category?.Name</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@post.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="GetComments" asp-route-id="@post.Id" class="btn btn-warning btn-sm">Comments</a>
                     <form asp-action="Delete" asp-route-id="@post.Id" method="post" class="d-inline">
                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                     </form>

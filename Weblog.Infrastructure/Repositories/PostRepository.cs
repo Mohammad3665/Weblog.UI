@@ -22,7 +22,7 @@ namespace Weblog.Infrastructure.Repositories
             _fileStorageRepository = fileStorageRepository;
         }
 
-        public async Task AddAsync(Post post , IFormFile? Image)
+        public async Task AddAsync(Post post , IFormFile? Image, string authorName)
         {
             if (Image != null)
             {
@@ -68,6 +68,8 @@ namespace Weblog.Infrastructure.Repositories
             _context.Posts.Update(post);
             await _context.SaveChangesAsync();
         }
+
+
         
     }
 }

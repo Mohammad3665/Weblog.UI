@@ -13,7 +13,7 @@ namespace Weblog.Core.Domain.RepositoryContracts
         Task<Post?> GetByIdAsync(Guid id);
 
         Task<List<Post>> GetAllAsync();
-        Task AddAsync(Post post, IFormFile? image);
+        Task AddAsync(Post post, IFormFile? image, string authorName);
         Task UpdateAsync(Post post, IFormFile? newImage);
         Task DeleteAsync(Post post);
     }

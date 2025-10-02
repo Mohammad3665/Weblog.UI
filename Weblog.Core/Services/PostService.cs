@@ -13,19 +13,21 @@ namespace Weblog.Core.Services
     {
         private readonly IPostRepository _postRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly ICommentRepository _commentRepository;
         private readonly IFileStorageRepository _fileStorageRepository;
 
-        public PostService(IPostRepository postRepository, ICategoryRepository categoryRepository, IFileStorageRepository fileStorageRepository)
+        public PostService(IPostRepository postRepository, ICategoryRepository categoryRepository, IFileStorageRepository fileStorageRepository, ICommentRepository commentRepository)
         {
             _postRepository = postRepository;
             _categoryRepository = categoryRepository;
             _fileStorageRepository = fileStorageRepository;
+            _commentRepository = commentRepository;
         }
 
-        public async Task<Guid> CreatePostAsync(Post post, IFormFile? image)
+        public async Task<Guid> CreatePostAsync(Post post, IFormFile? image, string authorName)
         {
-            
-            await _postRepository.AddAsync(post, image);
+
+            await _postRepository.AddAsync(post, image, post.AuthorName);
             return post.Id;
         }
         public async Task UpdatePostAsync(Post post, IFormFile? newImage)
@@ -55,7 +57,7 @@ namespace Weblog.Core.Services
             var posts = await _postRepository.GetAllAsync();
             if (!string.IsNullOrEmpty(searchString))
             {
-                posts = posts.Where(p => p.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase) || 
+                posts = posts.Where(p => p.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
                 p.Content.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                 .ToList();
             }
@@ -64,6 +66,12 @@ namespace Weblog.Core.Services
                 posts = posts.Where(p => p.CategoryId == categoryId).ToList();
             }
             return posts;
+        }
+
+        public async Task<List<Comment?>?> GetPostCommentsAsync(Guid id)
+        {
+            var comments = await _commentRepository.GetAllPostCommentsAsync(id);
+            return comments;
         }
     }
 }

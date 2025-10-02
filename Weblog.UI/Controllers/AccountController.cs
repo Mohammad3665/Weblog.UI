@@ -118,7 +118,7 @@ namespace Weblog.UI.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(HomeController.Index), "Posts list");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         public async Task<IActionResult> IsEmailAlreadyRegistered(string email)

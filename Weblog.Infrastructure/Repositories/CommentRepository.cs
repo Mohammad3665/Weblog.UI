@@ -35,7 +35,12 @@ namespace Weblog.Infrastructure.Repositories
         {
             return await _context.Comments.ToListAsync();
         }
-
+        public async Task<List<Comment>> GetAllPostCommentsAsync(Guid postId)
+        {
+            return await _context.Comments
+            .Where(c => c.PostId == postId)
+            .ToListAsync();
+        }
         public async Task<Comment?> GetByIdAsync(Guid id)
         {
             return await _context.Comments.FindAsync(id);

@@ -1,13 +1,16 @@
-﻿using Weblog.Core.Domain.Entities;
+﻿using System.Threading.Tasks;
+using Weblog.Core.Domain.Entities;
 using Weblog.Core.Domain.RepositoryContracts;
 
 public class CommentService
 {
     private readonly ICommentRepository _commentRepository;
+    private readonly IPostRepository _postRepository;
 
-    public CommentService(ICommentRepository commentRepository)
+    public CommentService(ICommentRepository commentRepository, IPostRepository postRepository)
     {
         _commentRepository = commentRepository;
+        _postRepository = postRepository;
     }
 
     public async Task AddCommentAsync(Comment comment)
@@ -44,5 +47,10 @@ public class CommentService
     {
         var comments = await _commentRepository.GetAllAsync();
         return comments;
+    }
+    public async Task<List<Comment?>?> GetPostCommentsAsync(Guid id)
+    {
+        var comments = await _commentRepository.GetAllPostCommentsAsync(id);
+        return comments ?? new List<Comment>();
     }
 }
