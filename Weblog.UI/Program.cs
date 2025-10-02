@@ -37,14 +37,15 @@ async Task CreateRoles(IServiceProvider serviceProvider)
             throw new Exception(result.Errors.Select(e => e.Description).First());
     }
 
-    var defaultAdminEmail = "mashmammad@gmail.com";
+    var defaultAdminEmail = "mashmammad876@gmail.com";
     var adminUser = await userManager.FindByEmailAsync(defaultAdminEmail);
     if (adminUser == null)
     {
         var newAdmin = new ApplicationUser
         {
             UserName = defaultAdminEmail,
-            Email = defaultAdminEmail
+            Email = defaultAdminEmail,
+            EmailConfirmed = true
         };
 
         var result = await userManager.CreateAsync(newAdmin, "Admin@123");

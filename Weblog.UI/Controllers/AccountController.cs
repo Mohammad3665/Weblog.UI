@@ -81,10 +81,13 @@ namespace Weblog.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string ReturnUrl = null)
         {
+            ViewData["ReturnUrl"] = ReturnUrl;
             return View();
         }
+
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginDTO loginDTO, string? ReturnUrl)
         {
@@ -108,7 +111,7 @@ namespace Weblog.UI.Controllers
                 {
                     return LocalRedirect(ReturnUrl);
                 }
-                return RedirectToAction(nameof(PostController.Details), "Deatails");
+                return RedirectToAction(nameof(PostController.Details), "Post");
             }
             ModelState.AddModelError("Login", "Invalid Email or Password");
             return View(loginDTO);
