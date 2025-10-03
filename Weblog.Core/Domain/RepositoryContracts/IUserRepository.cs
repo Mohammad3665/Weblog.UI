@@ -17,5 +17,7 @@ namespace Weblog.Core.Domain.RepositoryContracts
         Task AddAsync(ApplicationUser user);
         Task UpdateAsync(ApplicationUser user);
         Task DeleteAsync(ApplicationUser user);
+
+        int GetCountOfUsers();
     }
 }

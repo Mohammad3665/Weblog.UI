@@ -67,7 +67,10 @@ namespace Weblog.Core.Services
             }
             return posts;
         }
-
+        public int CountOfPosts()
+        {
+            return _postRepository.GetPostsCount();
+        }
         public async Task<List<Comment?>?> GetPostCommentsAsync(Guid id)
         {
             var comments = await _commentRepository.GetAllPostCommentsAsync(id);

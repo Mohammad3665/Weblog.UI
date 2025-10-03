@@ -83,12 +83,12 @@
                         <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation" aria-label="Main navigation" data-accordion="false" id="navigation">
 
                             <li class="nav-item">
-                                <a asp-action="Index" asp-controller="Post" class="nav-link">
+                                <a asp-action="Admin" asp-controller="Post" class="nav-link">
 
                                     <p>Posts</p>
                                 </a>
                             <li class="nav-item">
-                                <a asp-action="Index" asp-controller="Ctegory" class="nav-link">
+                                <a asp-action="Admin" asp-controller="Ctegory" class="nav-link">
 
                                     <p>
                                         Categories
@@ -97,18 +97,10 @@
                             </li>
                                 
                             </li>
-                            <li class="nav-item">
-                                <a href="file:///C:/Users/0/Desktop/index.html#" class="nav-link">
-
-                                    <p>
-                                        Layout Options
-
-
-                                    </p>
-                                </a>
+                            
                                
                             <li class="nav-item">
-                                <a asp-action="Index" asp-controller="User" class="nav-link">
+                                <a asp-action="Admin" asp-controller="User" class="nav-link">
 
                                     <p>
                                         Users
@@ -140,8 +132,8 @@
                             <!--begin::Small Box Widget 1-->
                             <div class="small-box text-bg-primary">
                                 <div class="inner">
-                                    <h3>150</h3>
-                                    <p>New Orders</p>
+                                    <h3>@ViewBag.AllOfUsers</h3>
+                                    <p>Count of users</p>
                                 </div>
                             </div>
                             <!--end::Small Box Widget 1-->
@@ -151,8 +143,8 @@
                             <!--begin::Small Box Widget 2-->
                             <div class="small-box text-bg-success">
                                 <div class="inner">
-                                    <h3>53</h3>
-                                    <p>Bounce Rate</p>
+                                    <h3>@ViewBag.AllOfCategories</h3>
+                                    <p>Count of categories</p>
                                 </div>
                             </div>
                             <!--end::Small Box Widget 2-->
@@ -162,22 +154,11 @@
                             <!--begin::Small Box Widget 3-->
                             <div class="small-box text-bg-warning">
                                 <div class="inner">
-                                    <h3>44</h3>
-                                    <p>User Registrations</p>
+                                    <h3>@ViewBag.AllOfPosts</h3>
+                                    <p>Count of posts</p>
                                 </div>
                             </div>
                             <!--end::Small Box Widget 3-->
-                        </div>
-                        <!--end::Col-->
-                        <div class="col-lg-3 col-6">
-                            <!--begin::Small Box Widget 4-->
-                            <div class="small-box text-bg-danger">
-                                <div class="inner">
-                                    <h3>65</h3>
-                                    <p>Unique Visitors</p>
-                                </div>
-                            </div>
-                            <!--end::Small Box Widget 4-->
                         </div>
                         <!--end::Col-->
                     </div>

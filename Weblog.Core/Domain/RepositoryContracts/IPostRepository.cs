@@ -16,5 +16,6 @@ namespace Weblog.Core.Domain.RepositoryContracts
         Task AddAsync(Post post, IFormFile? image, string authorName);
         Task UpdateAsync(Post post, IFormFile? newImage);
         Task DeleteAsync(Post post);
+        int GetPostsCount();
     }
 }

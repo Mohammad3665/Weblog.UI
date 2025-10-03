@@ -45,6 +45,11 @@ namespace Weblog.Infrastructure.Repositories
             return await _context.Users.FindAsync(id);
         }
 
+        public int GetCountOfUsers()
+        {
+            return _context.Users.Count();
+        }
+
         public async Task UpdateAsync(ApplicationUser user)
         {
             _context.Users.Update(user);

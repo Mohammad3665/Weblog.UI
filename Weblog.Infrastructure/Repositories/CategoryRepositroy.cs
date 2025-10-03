@@ -39,6 +39,11 @@ namespace Weblog.Infrastructure.Repositories
             return await _context.Categories.FindAsync(id);
         }
 
+        public int GetCategoriesCount()
+        {
+            return _context.Categories.Count();
+        }
+
         public async Task UpdateAsync(Category category)
         {
             _context.Categories.Update(category);

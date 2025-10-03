@@ -55,6 +55,10 @@ namespace Weblog.Infrastructure.Repositories
             .FirstOrDefaultAsync(p => p.Id == id);
         }
 
+        public int GetPostsCount()
+        {
+            return _context.Posts.Count();
+        }
 
         public async Task UpdateAsync(Post post, IFormFile? newImage)
         {

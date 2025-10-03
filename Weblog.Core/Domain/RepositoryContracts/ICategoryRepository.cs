@@ -15,5 +15,6 @@ namespace Weblog.Core.Domain.RepositoryContracts
         Task AddAsync(Category category);
         Task UpdateAsync(Category category);
         Task DeleteAsync(Category category);
+        int GetCategoriesCount();
     }
 }

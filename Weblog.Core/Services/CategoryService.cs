@@ -50,5 +50,10 @@ namespace Weblog.Core.Services
         {
             return await _categoryRepository.GetAllAsync();
         }
+
+        public int CountOfCategories()
+        {
+            return _categoryRepository.GetCategoriesCount();
+        }
     }
 }

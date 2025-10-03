@@ -45,5 +45,10 @@ namespace Weblog.Core.Services
                 await _userRepository.UpdateAsync(user);
             }
         }
+
+        public int CountOfUsers()
+        {
+            return _userRepository.GetCountOfUsers();
+        }
     }
 }
