@@ -15,8 +15,7 @@ namespace Weblog.Core.Domain.Entities
         [StringLength(50)]
         public string Title { get; set; }
         public string Content { get; set; }
-        [Required]
-        public Guid AuthorId { get; set; }
+        public Guid AuthorId { get; set; } = Guid.NewGuid();
         [StringLength(20)]
         public string AuthorName { get; set; }
         public DateTime CreatedDate { get; set; }
