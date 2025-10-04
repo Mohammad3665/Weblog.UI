@@ -1,7 +1,7 @@
 ﻿@model Weblog.Core.Domain.IdentityEntities.ApplicationUser
 @{
     ViewData["Title"] = "Manage Roles for " + Model.UserName;
-    var roles = ViewBag.Roles as List<Microsoft.AspNetCore.Identity.IdentityRole>;
+    var roles = ViewBag.Roles as List<Weblog.Core.Domain.IdentityEntities.ApplicationRole>;
     var userRoles = ViewBag.UserRoles as IList<string>;
 }
 <h2>Manage Roles - @Model.UserName</h2>

@@ -11,8 +11,8 @@ namespace Weblog.UI.Areas.Admin.Controllers
     public class UserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        public UserController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        private readonly RoleManager<ApplicationRole> _roleManager;
+        public UserController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -44,7 +44,7 @@ namespace Weblog.UI.Areas.Admin.Controllers
 
             if (!await _roleManager.RoleExistsAsync(role))
             {
-                await _roleManager.CreateAsync(new IdentityRole(role));
+                await _roleManager.CreateAsync(new ApplicationRole(role));
             }
             await _userManager.AddToRoleAsync(user, role);
             return RedirectToAction("ManageRoles", new { id = id});

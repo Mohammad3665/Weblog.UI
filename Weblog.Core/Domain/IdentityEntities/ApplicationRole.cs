@@ -10,5 +10,12 @@ namespace Weblog.Core.Domain.IdentityEntities
 {
     public class ApplicationRole : IdentityRole<Guid>
     {
+        public ApplicationRole() : base() { }
+        public ApplicationRole(string roleName)
+        {
+            Id = Guid.NewGuid();
+            Name = roleName;
+            NormalizedName = roleName.ToUpper();
+        }
     }
 }
