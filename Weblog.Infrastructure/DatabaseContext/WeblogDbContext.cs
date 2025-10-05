@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using Weblog.Core.Domain.Entities;
@@ -13,7 +14,7 @@ namespace Weblog.Infrastructure.DatabaseContext
 {
     public class WeblogDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
-        public WeblogDbContext(DbContextOptions<WeblogDbContext> options): base(options) { }
+        public WeblogDbContext(DbContextOptions<WeblogDbContext> options) : base(options) { }
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
@@ -40,6 +41,11 @@ namespace Weblog.Infrastructure.DatabaseContext
             builder.Entity<Comment>()
                 .Property(c => c.IsApproved)
                 .HasDefaultValue(false);
+            //builder.Entity<Comment>()
+            //    .HasOne(c => c.User)
+            //    .WithMany(u => u.Comments)
+            //    .HasForeignKey(c => c.UserId)
+            //    .OnDelete(DeleteBehavior.Restrict);
         }
     }
 

@@ -37,7 +37,7 @@ namespace Weblog.UI.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Categories = await _categoryService.GetAllCategoriesAsync();
-                return View(post);
+                //return View(post);
             }
 
             post.CreatedDate = DateTime.Now; 

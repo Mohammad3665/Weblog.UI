@@ -26,7 +26,7 @@ namespace Weblog.Infrastructure.Repositories
         {
             if (Image != null)
             {
-                post.ImageUrl = await _fileStorageRepository.SaveFileAsync(Image, "uploads/thumbnails");
+                post.ImageUrl = await _fileStorageRepository.SaveFileAsync(Image, "Uploads/PostImages");
             }
             post.CreatedDate = DateTime.Now;
             await _context.Posts.AddAsync(post);

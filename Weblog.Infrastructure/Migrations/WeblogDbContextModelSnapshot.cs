@@ -138,7 +138,7 @@ namespace Weblog.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Weblog.Core.Domain.Entities.Comment", b =>
@@ -175,7 +175,7 @@ namespace Weblog.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Weblog.Core.Domain.Entities.Post", b =>
@@ -223,7 +223,7 @@ namespace Weblog.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts", (string)null);
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("Weblog.Core.Domain.Entities.User", b =>
@@ -244,7 +244,7 @@ namespace Weblog.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Weblog.Core.Domain.IdentityEntities.ApplicationRole", b =>
@@ -403,7 +403,7 @@ namespace Weblog.Infrastructure.Migrations
                     b.HasOne("Weblog.Core.Domain.Entities.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Post");
