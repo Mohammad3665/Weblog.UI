@@ -41,11 +41,11 @@ namespace Weblog.Infrastructure.DatabaseContext
             builder.Entity<Comment>()
                 .Property(c => c.IsApproved)
                 .HasDefaultValue(false);
-            //builder.Entity<Comment>()
-            //    .HasOne(c => c.User)
-            //    .WithMany(u => u.Comments)
-            //    .HasForeignKey(c => c.UserId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Comment>()
+                .HasOne(c => c.User)
+                .WithMany(u => u.Comments)
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 
