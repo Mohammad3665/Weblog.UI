@@ -19,8 +19,8 @@
         @foreach (var comment in Model)
         {
             <tr>
-                <td>@comment.PostId</td>
-                <td>@comment.UserId</td>
+                @* <td>@comment.PostId</td> *@
+                <td>@User.Identity.Name</td>
                 <td>@comment.Text</td>
                 <td>@comment.CreatedDate.ToShortDateString()</td>
                 <td>@comment.IsApproved</td>
