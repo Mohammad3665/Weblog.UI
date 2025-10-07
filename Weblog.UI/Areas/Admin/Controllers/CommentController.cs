@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Weblog.Core.Domain.Entities;
+using Weblog.Core.Services;
 
 namespace Weblog.UI.Areas.Admin.Controllers
 {
@@ -9,11 +11,12 @@ namespace Weblog.UI.Areas.Admin.Controllers
     public class CommentController : Controller
     {
         private readonly CommentService _commentService;
+
         public CommentController(CommentService commentService)
         {
             _commentService = commentService;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(Post post)
         {
             var comments = await _commentService.GetAllComments();
             return View(comments);

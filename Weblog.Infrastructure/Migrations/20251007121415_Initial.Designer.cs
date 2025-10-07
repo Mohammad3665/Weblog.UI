@@ -12,8 +12,8 @@ using Weblog.Infrastructure.DatabaseContext;
 namespace Weblog.Infrastructure.Migrations
 {
     [DbContext(typeof(WeblogDbContext))]
-    [Migration("20251005134210_DbContextUpdate")]
-    partial class DbContextUpdate
+    [Migration("20251007121415_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -188,6 +188,9 @@ namespace Weblog.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
+                    b.Property<Guid?>("ApplicationUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("AuthorId")
                         .HasColumnType("uniqueidentifier");
 
@@ -217,37 +220,13 @@ namespace Weblog.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("Weblog.Core.Domain.Entities.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Weblog.Core.Domain.IdentityEntities.ApplicationRole", b =>
@@ -403,7 +382,7 @@ namespace Weblog.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Weblog.Core.Domain.Entities.User", "User")
+                    b.HasOne("Weblog.Core.Domain.IdentityEntities.ApplicationUser", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -416,15 +395,15 @@ namespace Weblog.Infrastructure.Migrations
 
             modelBuilder.Entity("Weblog.Core.Domain.Entities.Post", b =>
                 {
+                    b.HasOne("Weblog.Core.Domain.IdentityEntities.ApplicationUser", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("Weblog.Core.Domain.Entities.Category", "Category")
                         .WithMany("Posts")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Weblog.Core.Domain.Entities.User", null)
-                        .WithMany("Posts")
-                        .HasForeignKey("UserId");
 
                     b.Navigation("Category");
                 });
@@ -439,7 +418,7 @@ namespace Weblog.Infrastructure.Migrations
                     b.Navigation("Comments");
                 });
 
-            modelBuilder.Entity("Weblog.Core.Domain.Entities.User", b =>
+            modelBuilder.Entity("Weblog.Core.Domain.IdentityEntities.ApplicationUser", b =>
                 {
                     b.Navigation("Comments");
 

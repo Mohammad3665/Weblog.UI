@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Weblog.Core.Domain.Entities;
+using Weblog.Core.Domain.IdentityEntities;
 using Weblog.Core.Services;
 
 namespace Weblog.UI.Controllers

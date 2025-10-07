@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using Weblog.Core.Domain.IdentityEntities;
 
 namespace Weblog.Core.Domain.Entities
 {
@@ -22,6 +23,6 @@ namespace Weblog.Core.Domain.Entities
         public Post Post { get; set; }
         [Required]
         public Guid UserId { get; set; }
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

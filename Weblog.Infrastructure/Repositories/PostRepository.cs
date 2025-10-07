@@ -52,6 +52,7 @@ namespace Weblog.Infrastructure.Repositories
             return await _context.Posts
             .Include(p => p.Category)
             .Include(p => p.Comments)
+            .ThenInclude(c => c.User)
             .FirstOrDefaultAsync(p => p.Id == id);
         }
 

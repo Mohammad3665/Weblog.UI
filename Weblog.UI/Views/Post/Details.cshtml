@@ -33,7 +33,7 @@
                         foreach (var comment in Model.Comments.Where(c => c.IsApproved))
                         {
                             <div class="mb-3 border-bottom pb-2">
-                                <p class="mb-1"><strong>User:</strong> @comment.UserId</p>
+                                <p class="mb-1"><strong>User:</strong> @comment.User?.UserName</p>
                                 <p class="text-muted"><small>@comment.CreatedDate.ToString("g")</small></p>
                                 <p>@comment.Text</p>
                             </div>

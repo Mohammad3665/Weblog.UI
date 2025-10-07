@@ -73,7 +73,6 @@ namespace Weblog.UI.Areas.Admin.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
         public async Task<IActionResult> GetComments(Guid id)
         {
             var comments = await _postService.GetPostCommentsAsync(id);
