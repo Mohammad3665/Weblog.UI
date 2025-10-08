@@ -30,9 +30,9 @@ namespace Weblog.Core.Services
             await _postRepository.AddAsync(post, image, post.AuthorName);
             return post.Id;
         }
-        public async Task UpdatePostAsync(Post post, IFormFile? newImage)
+        public async Task UpdatePostAsync(Post post, IFormFile? newImage, string authoreName)
         {
-            await _postRepository.UpdateAsync(post, newImage);
+            await _postRepository.UpdateAsync(post, newImage, authoreName);
         }
         public async Task DeletePostAsync(Guid postId)
         {

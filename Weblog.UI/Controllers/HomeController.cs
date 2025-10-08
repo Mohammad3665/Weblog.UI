@@ -25,6 +25,8 @@ namespace Weblog.UI.Controllers
             ViewBag.Categories = categories;
             ViewBag.SerachTerm = searchTerm;
             ViewBag.CategoryId = categoryId;
+            ViewBag.SereachString = searchString;
+
 
             return View(posts);
         }

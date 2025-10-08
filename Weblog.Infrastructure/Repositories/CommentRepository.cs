@@ -33,12 +33,17 @@ namespace Weblog.Infrastructure.Repositories
 
         public async Task<List<Comment>> GetAllAsync()
         {
-            return await _context.Comments.ToListAsync();
+            return await _context.Comments
+                .Include(c => c.User)
+                .Include(c => c.Post)
+                .ToListAsync();
         }
         public async Task<List<Comment>> GetAllPostCommentsAsync(Guid postId)
         {
             return await _context.Comments
             .Where(c => c.PostId == postId)
+            .Include(c => c.User)
+            .Include(c => c.Post)
             .ToListAsync();
         }
         public async Task<Comment?> GetByIdAsync(Guid id)

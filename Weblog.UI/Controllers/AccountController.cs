@@ -87,35 +87,45 @@ namespace Weblog.UI.Controllers
             return View();
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Login(LoginDTO loginDTO, string? ReturnUrl)
         {
-            if (ModelState.IsValid == false)
+            if (!ModelState.IsValid)
             {
-                ViewBag.Errors = ModelState.Values.SelectMany(temp => temp.Errors).Select(temp => temp.ErrorMessage);
+                ViewBag.Errors = ModelState.Values.SelectMany(temp => temp.Errors)
+                    .Select(temp => temp.ErrorMessage);
                 return View(loginDTO);
             }
-            var result = await _signInManager.PasswordSignInAsync(loginDTO.Email, loginDTO.Password, isPersistent: false, lockoutOnFailure: false);
+
+            var user = await _userManager.FindByEmailAsync(loginDTO.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError("Login", "User not found");
+                return View(loginDTO);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(
+                user.UserName,
+                loginDTO.Password,
+                isPersistent: false,
+                lockoutOnFailure: false);
+
             if (result.Succeeded)
             {
-                ApplicationUser user = await _userManager.FindByEmailAsync(loginDTO.Email);
-                if (user != null)
-                {
-                    if (await _userManager.IsInRoleAsync(user, UserTypeOptions.Admin.ToString()))
-                    {
-                        return RedirectToAction("Index", "Home"/*, new { area = "Admin" }*/);
-                    }
-                }
+                if (await _userManager.IsInRoleAsync(user, UserTypeOptions.Admin.ToString()))
+                    return RedirectToAction("Index", "Home", new { area = "Admin" });
+
                 if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
-                {
                     return LocalRedirect(ReturnUrl);
-                }
-                return RedirectToAction(nameof(PostController.Details), "Post");
+
+                return RedirectToAction(nameof(HomeController.Index), "Home");
             }
+
             ModelState.AddModelError("Login", "Invalid Email or Password");
             return View(loginDTO);
         }
+
+
 
         [Authorize]
         public async Task<IActionResult> Logout()

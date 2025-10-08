@@ -7,7 +7,7 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Post</th>
+            @* <th>Post</th> *@
             <th>User</th>
             <th>Text</th>
             <th>Date</th>
@@ -20,7 +20,7 @@
         {
             <tr>
                 @* <td>@comment.PostId</td> *@
-                <td>@User.Identity.Name</td>
+                <td>@comment.User.UserName</td>
                 <td>@comment.Text</td>
                 <td>@comment.CreatedDate.ToShortDateString()</td>
                 <td>@comment.IsApproved</td>

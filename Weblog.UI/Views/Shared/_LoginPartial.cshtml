@@ -4,6 +4,14 @@
 @inject UserManager<ApplicationUser> UserManager
 
 <ul class="navbar-nav">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li class="nav-item" style="color: white">
+            <p>
+                @User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value
+            </p>
+        </li>
+    }
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
@@ -11,6 +19,7 @@
                 <button type="submit" class="nav-link btn btn-link text-white">Logout</button>
             </form>
         </li>
+        
     }
     else
     {

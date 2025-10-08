@@ -20,9 +20,12 @@ namespace Weblog.Core.Domain.Entities
 
         [Required]
         public Guid PostId { get; set; }
+        [Required]
         public Post Post { get; set; }
         [Required]
         public Guid UserId { get; set; }
+        [Required]
         public ApplicationUser User { get; set; }
+
     }
 }

@@ -12,8 +12,6 @@ namespace Weblog.Core.Services
     {
         public async Task<string> SaveFileAsync(IFormFile file, string folder)
         {
-            if (file == null || file.Length == 0)
-                return string.Empty;
             var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Uploads/PostImages");
             
             if (!Directory.Exists(uploadsFolder))
@@ -28,6 +26,10 @@ namespace Weblog.Core.Services
             }
 
             var fileLocation = "/" + folder + "/" + fileName;
+            if (file == null || file.Length == 0)
+            {
+                fileLocation = "wwwroot/Defaults/DefaultPostImage.png";
+            }
             return fileLocation;
         }
 

@@ -59,10 +59,9 @@ namespace Weblog.UI.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Categories = await _categoryService.GetAllCategoriesAsync();
-                return View(post);
             }
 
-            await _postService.UpdatePostAsync(post, newImage);
+            await _postService.UpdatePostAsync(post, newImage, post.AuthorName);
             return RedirectToAction("Index", "Home");
         }
 
@@ -76,7 +75,7 @@ namespace Weblog.UI.Areas.Admin.Controllers
         public async Task<IActionResult> GetComments(Guid id)
         {
             var comments = await _postService.GetPostCommentsAsync(id);
-            return View();
+            return View(comments);
         }
 
     }
