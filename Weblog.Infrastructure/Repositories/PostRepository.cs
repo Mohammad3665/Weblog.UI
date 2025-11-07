@@ -26,7 +26,7 @@ namespace Weblog.Infrastructure.Repositories
         {
             if (Image != null)
             {
-                post.ImageUrl = await _fileStorageRepository.SaveFileAsync(Image, "/Uploads/PostImages");
+                post.ImageUrl = await _fileStorageRepository.SaveFileAsync(Image, "Uploads/PostImages");
             }
             post.CreatedDate = DateTime.Now;
             await _context.Posts.AddAsync(post);
@@ -66,13 +66,13 @@ namespace Weblog.Infrastructure.Repositories
             if (newImage != null)
             {
                 if (!string.IsNullOrEmpty(post.ImageUrl))
-                    await _fileStorageRepository.DeleteFileAsync(post.ImageUrl, "wwwroot/Uploads/PostImages");
+                    await _fileStorageRepository.DeleteFileAsync(post.ImageUrl, "Uploads/PostImages");
 
-                post.ImageUrl = await _fileStorageRepository.SaveFileAsync(newImage, "wwwroot/Uploads/PostImages");
+                post.ImageUrl = await _fileStorageRepository.SaveFileAsync(newImage, "Uploads/PostImages");
             }
             else
             {
-                post.ImageUrl = "/Defaults/DefaultPostImage.png";
+                post.ImageUrl = "Defaults/DefaultPostImage.png";
             }
             post.AuthorName = authoreName;
             _context.Posts.Update(post);
